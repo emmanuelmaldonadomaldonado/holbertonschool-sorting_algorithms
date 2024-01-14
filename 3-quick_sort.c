@@ -1,54 +1,39 @@
 #include "sort.h"
-#include <stddef.h>
-#include <stdio.h>
 
-/* Lomuto partition scheme */
-int lomuto_partition(int *array, int low, int high, size_t size)
+/**
+ * insertion_sort_list - Sorts a doubly linked list of integers
+ * in ascending order using the Insertion sort algorithm.
+ * @list: Double pointer to the head of the linked list.
+ */
+void insertion_sort_list(listint_t **list)
 {
-    int pivot = array[high];
-    int i = low - 1;
-    int j, temp;
-
-    for (j = low; j <= high - 1; j++)
-    {
-        if (array[j] <= pivot)
-        {
-            i++;
-            temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-            if (i != j)
-            {
-                print_array(array, size);
-            }
-        }
-    }
-    temp = array[i + 1];
-    array[i + 1] = array[high];
-    array[high] = temp;
-    if (i + 1 != high)
-    {
-        print_array(array, size);
-    }
-    return (i + 1);
-}
-
-/* Recursive function to perform quick sort */
-void quick_sort_recursive(int *array, int low, int high, size_t size)
-{
-    if (low < high)
-    {
-        int pivot_index = lomuto_partition(array, low, high, size);
-        quick_sort_recursive(array, low, pivot_index - 1, size);
-        quick_sort_recursive(array, pivot_index + 1, high, size);
-    }
-}
-
-/* Main function to call quick_sort_recursive */
-void quick_sort(int *array, size_t size)
-{
-    if (array == NULL || size < 2)
+    if (list == NULL || *list == NULL || (*list)->next == NULL)
         return;
 
-    quick_sort_recursive(array, 0, size - 1, size);
+    listint_t *curr, *prev, *temp;
+
+    curr = (*list)->next;
+
+    while (curr != NULL)
+    {
+        temp = curr;
+        curr = curr->next;
+
+        while (temp->prev != NULL && temp->n < temp->prev->n)
+        {
+            prev = temp->prev;  /* Update prev after swapping */
+            prev->next = temp->next;
+            if (temp->next != NULL)
+                temp->next->prev = prev;
+            temp->prev = prev->prev;
+            temp->next = prev;
+            prev->prev = temp;
+
+            if (temp->prev == NULL)
+                *list = temp; /* Update head if temp is new head */
+            else
+                temp->prev->next = temp; /* Update next of temp's prev */
+            print_list(*list);
+        }
+    }
 }

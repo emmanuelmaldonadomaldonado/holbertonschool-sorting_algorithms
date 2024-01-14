@@ -37,7 +37,7 @@ void insertion_sort_list(listint_t **list)
 
             print_list(*list);
 
-            prev = temp->prev;  // Update prev after swapping
+            prev = temp->prev;
         }
     }
 }
