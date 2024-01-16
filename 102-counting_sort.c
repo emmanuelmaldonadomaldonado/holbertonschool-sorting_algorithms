@@ -13,7 +13,7 @@ void counting_sort(int *array, size_t size)
     if (array == NULL || size < 2)
         return;
 
-    size_t i, j;
+    size_t i;
     int max = array[0];
     int *counting_array;
 
@@ -34,15 +34,14 @@ void counting_sort(int *array, size_t size)
     for (i = 0; i < size; i++)
         counting_array[array[i]]++;
 
-    for (i = 0, j = 0; i <= (size_t)max; i++)
+    for (i = 0; i <= (size_t)max; i++)
     {
         while (counting_array[i] > 0)
         {
-            array[j++] = (int)i;
+            printf("%ld\n", i);
             counting_array[i]--;
         }
     }
 
-    print_array(array, size);
     free(counting_array);
 }
