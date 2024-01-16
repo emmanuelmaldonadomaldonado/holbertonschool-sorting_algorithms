@@ -1,50 +1,53 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "sort.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
- * counting_sort - Sorts an array of integers in ascending order using
- *                 the Counting sort algorithm.
- * @array: The array to be sorted.
- * @size: The size of the array.
+ * counting_sort - Sorts an array of integers using counting sort algorithm
+ * @array: The array to be sorted
+ * @size: Size of the array
  */
 void counting_sort(int *array, size_t size)
 {
     if (array == NULL || size < 2)
         return;
 
-    size_t i;
+    /* Find the maximum value in the array */
     int max = array[0];
-    int *counting_array;
-
-    for (i = 1; i < size; i++)
+    for (size_t i = 1; i < size; i++)
     {
         if (array[i] > max)
             max = array[i];
     }
 
-    counting_array = (int *)malloc((max + 1) * sizeof(int));
-
+    /* Create and initialize counting_array with zeros */
+    int *counting_array = malloc((max + 1) * sizeof(int));
     if (counting_array == NULL)
         return;
-
-    for (i = 0; i <= (size_t)max; i++)
+    for (int i = 0; i <= max; i++)
         counting_array[i] = 0;
 
-    for (i = 0; i < size; i++)
+    /* Count occurrences of each element in the array */
+    for (size_t i = 0; i < size; i++)
         counting_array[array[i]]++;
 
-    for (i = 0; i <= (size_t)max; i++)
+    /* Update the array with sorted values from counting_array */
+    size_t i = 0;
+    for (int j = 0; j <= max; j++)
     {
-        while (counting_array[i] > 0)
+        while (counting_array[j] > 0)
         {
-            printf("%lu", i);
-            if (--counting_array[i] > 0)
-                printf(", ");
+            array[i++] = j;
+            counting_array[j]--;
         }
     }
 
+    /* Print the counting_array */
+    printf("%d", counting_array[0]);
+    for (int i = 1; i <= max; i++)
+        printf(", %d", counting_array[i]);
     printf("\n");
 
+    /* Free the counting_array */
     free(counting_array);
 }
