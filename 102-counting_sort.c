@@ -43,9 +43,9 @@ void counting_sort(int *array, size_t size)
         return;
     }
 
-    for (i = size - 1; i < size; i--)
+    for (i = size; i > 0; i--)
     {
-        temp_array[--counting_array[array[i]]] = array[i];
+        temp_array[--counting_array[array[i - 1]]] = array[i - 1];
     }
 
     for (i = 0; i < size; i++)
