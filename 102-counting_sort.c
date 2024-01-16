@@ -43,6 +43,6 @@ void counting_sort(int *array, size_t size)
         }
     }
 
-    print_array(counting_array, max + 1);
+    print_array(array, size);
     free(counting_array);
 }
