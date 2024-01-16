@@ -38,10 +38,13 @@ void counting_sort(int *array, size_t size)
     {
         while (counting_array[i] > 0)
         {
-            printf("%ld\n", i);
-            counting_array[i]--;
+            printf("%lu", i);
+            if (--counting_array[i] > 0)
+                printf(", ");
         }
     }
+
+    printf("\n");
 
     free(counting_array);
 }
