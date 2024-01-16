@@ -49,8 +49,7 @@ void counting_sort(int *array, size_t size)
     /* Build the sorted array using counting_array */
     for (int i = size - 1; i >= 0; i--)
     {
-        temp_array[counting_array[array[i]] - 1] = array[i];
-        counting_array[array[i]]--;
+        temp_array[--counting_array[array[i]]] = array[i];
     }
 
     /* Copy the sorted array back to the original array */
