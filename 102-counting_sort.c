@@ -1,5 +1,5 @@
 #include "sort.h"
-#include <stdlib.h>  // Include the necessary header file
+#include <stdlib.h>  /* Include the necessary header file */
 
 /**
  * counting_sort - Sorts an array of integers in ascending order using Counting sort
@@ -13,7 +13,9 @@ void counting_sort(int *array, size_t size) {
 
     /* Find the maximum value in the array */
     int max = array[0];
-    for (size_t i = 1; i < size; i++) {
+    size_t i;
+
+    for (i = 1; i < size; i++) {
         if (array[i] > max) {
             max = array[i];
         }
@@ -22,15 +24,15 @@ void counting_sort(int *array, size_t size) {
     /* Create a counting array with size (max + 1) and initialize to 0 */
     int *counting_array = malloc((max + 1) * sizeof(int));
     if (counting_array == NULL) {
-        return; // Unable to allocate memory
+        return; /* Unable to allocate memory */
     }
 
-    for (int i = 0; i <= max; i++) {
-        counting_array[i] = 0;
+    for (int j = 0; j <= max; j++) {
+        counting_array[j] = 0;
     }
 
     /* Populate the counting array with the occurrences of each element in the input array */
-    for (size_t i = 0; i < size; i++) {
+    for (i = 0; i < size; i++) {
         counting_array[array[i]]++;
     }
 
