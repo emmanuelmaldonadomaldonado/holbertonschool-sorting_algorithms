@@ -31,23 +31,36 @@ void counting_sort(int *array, size_t size)
     for (size_t i = 0; i < size; i++)
         counting_array[array[i]]++;
 
-    /* Update the array with sorted values from counting_array */
-    size_t i = 0;
-    for (int j = 0; j <= max; j++)
+    /* Update counting_array to hold the cumulative count */
+    for (int i = 1; i <= max; i++)
+        counting_array[i] += counting_array[i - 1];
+
+    /* Print the counting array */
+    print_array(counting_array, max + 1);
+
+    /* Create a temporary array to hold the sorted values */
+    int *temp_array = malloc(size * sizeof(int));
+    if (temp_array == NULL)
     {
-        while (counting_array[j] > 0)
-        {
-            array[i++] = j;
-            counting_array[j]--;
-        }
+        free(counting_array);
+        return;
     }
 
-    /* Print the counting_array */
-    printf("%d", counting_array[0]);
-    for (int i = 1; i <= max; i++)
-        printf(", %d", counting_array[i]);
-    printf("\n");
+    /* Build the sorted array using counting_array */
+    for (int i = size - 1; i >= 0; i--)
+    {
+        temp_array[counting_array[array[i]] - 1] = array[i];
+        counting_array[array[i]]--;
+    }
 
-    /* Free the counting_array */
+    /* Copy the sorted array back to the original array */
+    for (size_t i = 0; i < size; i++)
+        array[i] = temp_array[i];
+
+    /* Print the sorted array */
+    print_array(array, size);
+
+    /* Free the allocated memory */
     free(counting_array);
+    free(temp_array);
 }
