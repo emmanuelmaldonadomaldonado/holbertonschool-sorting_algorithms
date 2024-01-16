@@ -1,6 +1,5 @@
 #include "sort.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 /**
  * counting_sort - Sorts an array of integers using counting sort algorithm
@@ -17,7 +16,7 @@ void counting_sort(int *array, size_t size)
 
     for (i = 1; i < size; i++)
     {
-        if ((size_t)array[i] > (size_t)max)
+        if (array[i] > max)
             max = array[i];
     }
 
